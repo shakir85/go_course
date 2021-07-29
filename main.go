@@ -31,3 +31,9 @@ func main() {
 	}
 
 }
+
+// Notes:
+// Variables declaration:
+// 		var myString string
+// 		var myString = ""
+// 		myString := ""
