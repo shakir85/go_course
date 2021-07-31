@@ -3,31 +3,50 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"myapp/doctor"
+	"math/rand"
 	"os"
-	"strings"
+	"time"
 )
 
+const prompt = "and press ENTER when reader..."
+
 func main() {
-	// Declare a reader, and specify where do you want to read from
+	// seed the random number generator
+	rand.Seed(time.Now().UnixNano())
+
+	var firstNumber = rand.Intn(8) + 2
+	var secondNumber = rand.Intn(8) + 2
+	var subtraction = rand.Intn(8) + 2
+	var answer = firstNumber*secondNumber - subtraction
+
+	playTheGame(firstNumber, secondNumber, subtraction, answer)
+
+}
+
+func playTheGame(firstNumber, secondNumber, subtraction, answer int) {
 	reader := bufio.NewReader(os.Stdin)
 
-	whatToSay := doctor.Intro()
+	// display a welcome/instructions
+	fmt.Println("Guess the number game")
+	fmt.Println("----------------------")
+	fmt.Println("")
 
-	fmt.Println(whatToSay)
+	fmt.Println("Think of a number between 1 and 10", prompt)
+	reader.ReadString('\n')
 
-	for {
-		fmt.Print("-> ")
-		userInput, _ := reader.ReadString('\n')
-		// Replace the appended '\n' from user input (remove it)
-		userInput = strings.Replace(userInput, "\n", "", -1)
+	// take them through the game
+	fmt.Println("Multiply your number by", firstNumber, prompt)
+	reader.ReadString('\n')
 
-		if userInput == "quit" {
-			break
-		} else {
-			fmt.Println(doctor.Response(userInput))
-		}
+	fmt.Println("Now multiply the result by", secondNumber, prompt)
+	reader.ReadString('\n')
 
-	}
+	fmt.Println("Divide the result by the number you originally thought of", prompt)
+	reader.ReadString('\n')
 
+	fmt.Println("Now subtract", subtraction, prompt)
+	reader.ReadString('\n')
+
+	//give them answer
+	fmt.Println("The answer is", answer)
 }
