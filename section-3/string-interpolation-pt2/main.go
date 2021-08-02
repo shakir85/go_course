@@ -10,13 +10,23 @@ import (
 
 var reader *bufio.Reader
 
-func main() {
-	reader = bufio.NewReader(os.Stdin)
-	userName := readString("What is your name?")
-	age := readInt("How old are you?")
-	favNum := readFloat("What is your favorite number?")
+type User struct {
+	UserName       string
+	Age            int
+	FavoriteNumber float64
+}
 
-	fmt.Printf("Your name is %s. You are %d years old and your favorite number is %.2f.\n", userName, age, favNum)
+func main() {
+	var user User
+	reader = bufio.NewReader(os.Stdin)
+	user.UserName = readString("What is your name?")
+	user.Age = readInt("How old are you?")
+	user.FavoriteNumber = readFloat("What is your favorite number?")
+
+	fmt.Printf("Your name is %s. You are %d years old and your favorite number is %.2f.\n",
+		user.UserName,
+		user.Age,
+		user.FavoriteNumber)
 }
 
 func promot() {
